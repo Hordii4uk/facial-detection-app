@@ -1,11 +1,8 @@
 let video = document.getElementById("video");
 let model;
-
 // declaring the canvas variable and setting the context
-
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
-
 const accessCamera = () => {
 	navigator.mediaDevices
 		.getUserMedia({
@@ -19,16 +16,11 @@ const accessCamera = () => {
 			video.srcObject = stream;
 		});
 };
-
 const detectFaces = async () => {
 	const prediction = await model.estimateFaces(video, false);
-
 	// using canvas to paint videos
-
 	ctx.drawImage(video, 0, 0, 500, 400);
-
 	prediction.forEach((predictions) => {
-
 		// draw a rectangle that will define the face
 		ctx.beginPath();
 		ctx.lineWidth = "4";
@@ -45,7 +37,6 @@ const detectFaces = async () => {
 		ctx.stroke();
 	});
 };
-
 accessCamera();
 video.addEventListener("loadeddata", async () => {
 	model = await blazeface.load();
